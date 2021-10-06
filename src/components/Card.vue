@@ -1,13 +1,13 @@
 <template>
     <div class="card"  @mouseleave="showImg" @mouseenter="hideImg">
-        <img class="cardImage" :src="`https://image.tmdb.org/t/p/w300/${this.filmObject.poster_path}`" :alt="this.filmObject.title">
+        <img class="cardImage" :src="`https://image.tmdb.org/t/p/w300/${this.filmObject.poster_path}`" :alt="this.filmObject.type=='film'? this.filmObject.title : this.filmObject.type">
         <div class="content">
-            <h3>Titolo: {{this.filmObject.title}}</h3>
+            <h3>Titolo: {{this.filmObject.type=='film'? this.filmObject.title : this.filmObject.name}}</h3>
             <div class="d-flex">
                 <p>Lingua: {{this.filmObject.original_language}}</p>
                 <img class="flagIcon" :src="`https://www.unknown.nu/flags/images/${this.filmObject.original_language}-100`">
             </div>
-            <h4>Titolo originale: {{this.filmObject.original_title}}</h4>
+            <h4>Titolo originale: {{this.filmObject.type=='film'? this.filmObject.original_title : this.filmObject.original_name}}</h4>
             <p>Voto: {{this.filmObject.vote_average}}</p>
         </div>
     </div>
@@ -29,12 +29,10 @@ export default {
         hideImg: function(event){
             console.log(event.target);
             event.target.getElementsByClassName("cardImage")[0].style.display = "none";
-            // document.getElementsByClassName("cardImage")[0].style.display = "none";
         },
         showImg: function(event){
             console.log(event.target);
             event.target.getElementsByClassName("cardImage")[0].style.display = "block";
-            // document.getElementsByClassName("cardImage")[0].style.display = "none";
         },
     },
 }
