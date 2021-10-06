@@ -3,7 +3,10 @@
         <img class="cardImage" :src="`https://image.tmdb.org/t/p/w300/${this.filmObject.poster_path}`" :alt="this.filmObject.title">
         <div class="content">
             <h3>Titolo: {{this.filmObject.title}}</h3>
-            <p>Lingua: {{this.filmObject.original_language}}</p>
+            <div class="d-flex">
+                <p>Lingua: {{this.filmObject.original_language}}</p>
+                <img class="flagIcon" :src="`https://www.unknown.nu/flags/images/${this.filmObject.original_language}-100`">
+            </div>
             <h4>Titolo originale: {{this.filmObject.original_title}}</h4>
             <p>Voto: {{this.filmObject.vote_average}}</p>
         </div>
@@ -16,6 +19,11 @@ export default {
     props:{
         filmObject:Object,
         index:Number,
+    },
+    watch:{
+        filmObject: function(value){
+            console.log(value);
+        }
     },
     methods:{
         hideImg: function(event){
@@ -34,6 +42,7 @@ export default {
 
 <style lang="scss" scoped>
     @import '../assets/style/common.scss';
+    // @import 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css';
     .card{
         position: relative;
         height: 20rem;
@@ -43,7 +52,15 @@ export default {
         display: flex;
         flex-direction: row!important;;
         overflow: hidden;
-        img{
+        .d-flex{
+            display: flex;
+        }
+        .flagIcon{
+            margin-left: 4px;
+            width: 20px;
+            height: 15px;
+        }
+        .cardImage{
             width: calc(100% - 20px);
             height: calc(100% - 20px);
             position: absolute;

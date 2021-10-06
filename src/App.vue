@@ -19,21 +19,37 @@ export default {
   data(){
     return{
       stringToGet:'',
-      callRoot:"https://api.themoviedb.org/3/search/movie",
+      callMovie:"https://api.themoviedb.org/3/search/movie",
+      callSeries:"https://api.themoviedb.org/3/search/tv",
       filmArray:[],
     }
   },
   methods:{
     callAxios(str){
-      axios.get(this.callRoot, {
+      let temp=[];
+      axios.get(this.callMovie, {
             params: {
                 api_key: "a21aee6674cb415ea0fe118a1c90c893",
                 language: "it",
                 query: str,
             }   
         }).then((response)=>{
-            this.filmArray=response.data.results;
-            console.log(this.filmArray);
+            response.data.results.map((element)=>{element.type="film"});
+            temp=response.data.results;
+            axios.get(this.callSeries, {
+              params: {
+                  api_key: "a21aee6674cb415ea0fe118a1c90c893",
+                  language: "it",
+                  query: str,
+              }   
+              }).then((response)=>{
+                  response.data.results.map((element)=>{element.type="serie"});
+                  temp.push(...response.data.results);
+                  this.filmArray=temp;
+                  console.log(temp);
+                  console.log(response.data.results);
+              });
+            // console.log(this.filmArray);
         });
     },
   }

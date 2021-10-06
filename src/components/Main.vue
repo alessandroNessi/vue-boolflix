@@ -23,13 +23,8 @@ export default {
 
         }
     },
-    beforeUpdate(){
-
-    },
     methods:{
-        // hideImg(){
-        //     alert("ciao");
-        // },
+
     }
 }
 </script>
