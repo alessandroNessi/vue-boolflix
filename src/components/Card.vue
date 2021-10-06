@@ -1,6 +1,6 @@
 <template>
     <div class="card"  @mouseleave="showImg" @mouseenter="hideImg">
-        <img class="cardImage" :src="`https://image.tmdb.org/t/p/w300/${this.filmObject.poster_path}`" :alt="this.filmObject.type=='film'? this.filmObject.title : this.filmObject.type">
+        <img class="cardImage" :src="this.filmObject.poster_path==null?require(`../assets/img/no_image.jpg`):`https://image.tmdb.org/t/p/w300/${this.filmObject.poster_path}`" :alt="this.filmObject.type=='film'? this.filmObject.title : this.filmObject.type">
         <div class="content">
             <h3>Titolo: {{this.filmObject.type=='film'? this.filmObject.title : this.filmObject.name}}</h3>
             <div class="d-flex">
@@ -43,8 +43,11 @@ export default {
     // @import 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css';
     .card{
         position: relative;
-        height: 20rem;
-        padding: 10px;
+        width: 300px!important;
+        margin-top: 16px;
+        padding: 2px!important;
+        height: 430px;
+        
         border: 0px solid transparent!important;;
         background-color: $std_bgr!important;
         display: flex;
@@ -59,8 +62,8 @@ export default {
             height: 15px;
         }
         .cardImage{
-            width: calc(100% - 20px);
-            height: calc(100% - 20px);
+            width: calc(100% - 4px);
+            height: calc(100% - 4px);
             position: absolute;
             top: 50%;
             left: 50%;
@@ -70,7 +73,7 @@ export default {
         .content{
             width: 100%;
             padding: 1rem;
-            flex-grow: 1;
+            // flex-grow: 1;
             height: 100%;
             *{
                 margin-bottom: 0.2rem;

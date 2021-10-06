@@ -2,7 +2,7 @@
   <main>
       <div class="container">
           <div class="row">
-              <Card class="col-xl-2 col-md-3 col-6" v-for="(element, index) in this.filmArray" :key="index" :index="index" :filmObject="element" />
+              <Card class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12" v-for="(element, index) in this.filmArray" :key="index" :index="index" :filmObject="element" />
           </div>
       </div>
   </main>
@@ -36,5 +36,8 @@ export default {
         height: calc(100vh - 13rem);
         background-color: peachpuff;
         overflow: auto;
+    }
+    .row{
+        justify-content: center;
     }
 </style>
