@@ -44,7 +44,6 @@ export default {
     },
     data(){
         return{
-            // filmsel:"",
         }
     },
     methods:{
@@ -57,11 +56,8 @@ export default {
                 genre=parseInt(document.getElementById("serieselect").value);
                 array=this.seriesArray;
             }
-            // console.log("genere"+genre);
-            // console.log("array"+array);
             array.forEach((element) => {
-                // console.log("element"+element);
-                if(element.genre_ids.includes(genre)){
+                if(element.genre_ids.includes(genre)||isNaN(genre)){
                     element.visibility=true;
                 }else{
                     element.visibility=false;
@@ -95,14 +91,11 @@ export default {
         }
     }
     .row{
+        &::-webkit-scrollbar {
+            display: none;
+        }
         justify-content: center;
         border: 1px solid #aaa;
-        // ::-webkit-scrollbar {
-        //     display: none;
-        //     width: 0;
-        // }
-        // -ms-overflow-style: none;
-        // scrollbar-width: 0;
         height: 50rem;
         overflow: auto;
         
