@@ -8,7 +8,7 @@
                 <img class="flagIcon" :src="`https://www.unknown.nu/flags/images/${this.filmObject.original_language}-100`">
             </div>
             <h4>Titolo originale: {{this.filmObject.type=='film'? this.filmObject.original_title : this.filmObject.original_name}}</h4>
-            <p>Voto: {{this.filmObject.vote_average}}</p>
+            <p>Voto: {{this.filmObject.vote_average}}<span class="golden"><i v-for="(element, index) in Math.round(this.filmObject.vote_average/2)" :key="index" class="fas fa-star"></i></span><span class="gray"><i v-for="(element, index) in Math.round((10-this.filmObject.vote_average)/2)" :key="index" class="fas fa-star"></i></span></p>
         </div>
     </div>
 </template>
@@ -27,20 +27,20 @@ export default {
     },
     methods:{
         hideImg: function(event){
-            console.log(event.target);
             event.target.getElementsByClassName("cardImage")[0].style.display = "none";
         },
         showImg: function(event){
-            console.log(event.target);
             event.target.getElementsByClassName("cardImage")[0].style.display = "block";
         },
     },
+    computed:{
+    }
 }
 </script>
 
 <style lang="scss" scoped>
     @import '../assets/style/common.scss';
-    // @import 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css';
+    @import 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css';
     .card{
         position: relative;
         width: 300px!important;
@@ -79,6 +79,12 @@ export default {
                 margin-bottom: 0.2rem;
             }
             background-color: turquoise;
+        }
+        .golden{
+            color: gold;
+        }
+        .gray{
+            color: slategray;
         }
     }
 </style>
