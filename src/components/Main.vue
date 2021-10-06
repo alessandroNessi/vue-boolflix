@@ -4,13 +4,14 @@
           <!-- films -->
           <div class="row_title">
             <h2>FILMS</h2>
-            <select name="filmselect" id="filmselect">
+            <!-- v-model="this.filmsel" -->
+            <select  @change="Filtering(document.getElementById('filmselected').value,this.filmsArray)" name="filmselect" id="filmselect">
                 <option value="">tutti i generi</option>
-                <option v-for="(element,index) in this.filmsGenres" :key="index" value="element.id">{{element.name}}</option>
+                <option v-for="(element,index) in this.filmsGenres" :key="index" :value="element.id">{{element.name}}</option>
             </select>
           </div>
           <div class="row">
-              <Card class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12" v-for="(element, index) in this.filmsArray" :key="index" :filmObject="element" />
+              <Card class="card__film col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12" v-for="(element, index) in this.filmsArray" :key="index" :class="{'d-none':!element.visibility}" :filmObject="element" />
           </div>
 
         <!-- series -->
@@ -18,11 +19,11 @@
             <h2>SERIE</h2>
             <select name="serieselect" id="serieselect">
                 <option value="">tutti i generi</option>
-                <option v-for="(element,index) in this.seriesGenres" :key="index" value="element.id">{{element.name}}</option>
+                <option v-for="(element,index) in this.seriesGenres" :key="index" :value="element.id">{{element.name}}</option>
             </select>
           </div>
           <div class="row">
-              <Card class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12" v-for="(element, index) in this.seriesArray" :key="index" :filmObject="element" />
+              <Card class="card__serie col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12" v-for="(element, index) in this.seriesArray" :key="index" :filmObject="element" />
           </div>
       </div>
   </main>
@@ -43,11 +44,21 @@ export default {
     },
     data(){
         return{
-
+            filmsel:"",
         }
     },
     methods:{
-
+        Filtering(genre, array){
+            let type=parseInt(genre);
+            console.log(this.filmsel);
+            array.forEach((element) => {
+                if(element.genre_ids.includes(type)){
+                    element.visibility=true;
+                }else{
+                    element.visibility=false;
+                }
+            });
+        }
     }
 }
 </script>

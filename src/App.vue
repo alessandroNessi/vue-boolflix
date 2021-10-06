@@ -38,7 +38,7 @@ export default {
                 query: str,
             }   
         }).then((response)=>{
-            response.data.results.map((element)=>{element.type="film"});
+            response.data.results.map((element)=>{element.type="film"; element.visibility=true});
             this.filmsArray=response.data.results;
             axios.get(this.callSeries, {
               params: {
@@ -47,7 +47,7 @@ export default {
                   query: str,
               }   
               }).then((response)=>{
-                  response.data.results.map((element)=>{element.type="serie"});
+                  response.data.results.map((element)=>{element.type="serie"; element.visibility=true});
                   // temp.push(...response.data.results);
                   this.seriesArray=response.data.results;
                   // this.filmsArray=temp;
