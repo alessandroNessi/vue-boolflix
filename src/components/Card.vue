@@ -40,7 +40,6 @@ export default {
 
 <style lang="scss" scoped>
     @import '../assets/style/common.scss';
-    @import 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css';
     .card{
         position: relative;
         width: 300px!important;
@@ -68,12 +67,10 @@ export default {
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            // z-index: -1;
         }
         .content{
             width: 100%;
             padding: 1rem;
-            // flex-grow: 1;
             height: 100%;
             *{
                 margin-bottom: 0.2rem;
