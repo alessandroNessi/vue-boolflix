@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <Header @emittedSearch="callAxios"/>
-    <Main :filmArray="this.filmArray"/>
+    <Main :filmsGenres="this.filmsGenres" :seriesGenres="this.seriesGenres" :seriesArray="this.seriesArray" :filmsArray="this.filmsArray"/>
   </div>
 </template>
 
@@ -21,12 +21,16 @@ export default {
       stringToGet:'',
       callMovie:"https://api.themoviedb.org/3/search/movie",
       callSeries:"https://api.themoviedb.org/3/search/tv",
-      filmArray:[],
+      callGenres:"https://api.themoviedb.org/3/genre",
+      filmsArray:[],
+      seriesArray:[],
+      filmsGenres:[],
+      seriesGenres:[],
     }
   },
   methods:{
     callAxios(str){
-      let temp=[];
+      // let temp=[];
       axios.get(this.callMovie, {
             params: {
                 api_key: "a21aee6674cb415ea0fe118a1c90c893",
@@ -35,7 +39,7 @@ export default {
             }   
         }).then((response)=>{
             response.data.results.map((element)=>{element.type="film"});
-            temp=response.data.results;
+            this.filmsArray=response.data.results;
             axios.get(this.callSeries, {
               params: {
                   api_key: "a21aee6674cb415ea0fe118a1c90c893",
@@ -44,14 +48,36 @@ export default {
               }   
               }).then((response)=>{
                   response.data.results.map((element)=>{element.type="serie"});
-                  temp.push(...response.data.results);
-                  this.filmArray=temp;
-                  console.log(temp);
+                  // temp.push(...response.data.results);
+                  this.seriesArray=response.data.results;
+                  // this.filmsArray=temp;
+                  // console.log(temp);
                   console.log(response.data.results);
               });
-            // console.log(this.filmArray);
+            // console.log(this.filmsArray);
         });
     },
+  },
+  created(){
+    //get movie genres
+    axios.get(this.callGenres+"/movie/list", {
+      params: {
+        api_key: "a21aee6674cb415ea0fe118a1c90c893",
+        language: "it-IT",
+      }
+    }).then((response)=>{
+      this.filmsGenres=response.data.genres;
+    });
+    //get serie genres
+    axios.get(this.callGenres+"/tv/list", {
+      params: {
+        api_key: "a21aee6674cb415ea0fe118a1c90c893",
+        language: "it-IT",
+      }
+    }).then((response)=>{
+      this.seriesGenres=response.data.genres;
+      console.log(this.seriesGenres);
+    });
   }
 }
 </script>
