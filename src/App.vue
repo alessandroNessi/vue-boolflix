@@ -35,7 +35,7 @@ export default {
             this.filmArray=response.data.results;
             console.log(this.filmArray);
         });
-    }
+    },
   }
 }
 </script>

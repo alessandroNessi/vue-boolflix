@@ -2,7 +2,7 @@
   <main>
       <div class="container">
           <div class="row">
-              <Card class="col-xl-4 col-md-6 col-12" v-for="(element, index) in this.filmArray" :key="index" :filmObject="element" />
+              <Card class="col-xl-2 col-md-3 col-6" v-for="(element, index) in this.filmArray" :key="index" :index="index" :filmObject="element" />
           </div>
       </div>
   </main>
@@ -23,11 +23,13 @@ export default {
 
         }
     },
-    methods:{
-
-    },
     beforeUpdate(){
 
+    },
+    methods:{
+        // hideImg(){
+        //     alert("ciao");
+        // },
     }
 }
 </script>
