@@ -4,7 +4,7 @@
         <div class="content">
             <p><span class="info__type">Titolo: </span>{{this.filmObject.type=='film'? this.filmObject.title : this.filmObject.name}}</p>
             <p><span class="info__type">Titolo originale: </span> {{this.filmObject.type=='film'? this.filmObject.original_title : this.filmObject.original_name}}</p>
-            <p><span class="info__type">Cast: </span>{{this.filmObject.actors}}</p>
+            <p><span class="info__type">Cast: </span></p>
             <div class="d-flex">
                 <p><span class="info__type">Lingua: </span> {{this.filmObject.original_language}}</p>
                 <img class="flagIcon" :src="`https://www.unknown.nu/flags/images/${this.filmObject.original_language}-100`">
@@ -24,13 +24,8 @@ export default {
     },
     data(){
         return{
-            filmCast:[],
+            filmCast:{},
         }
-    },
-    watch:{
-        // filmObject: function(value){
-        //     console.log(value);
-        // }
     },
     methods:{
         hideImg: function(event){
@@ -44,32 +39,18 @@ export default {
         //     console.log(this.filmObject.actors);
         //     console.log(actors);
         //     let returningString="";
-            // , index=0;
-            // while(index<5 && index<array.length){
-            //     returningString+=array[index]+" ";
-                    // index++;
-            // }
+        //     , index=0;
+        //     while(index<5 && index<array.length){
+        //         returningString+=array[index]+" ";
+        //             index++;
+        //     }
         //     return returningString;
         // }
     },
-    created(){
-        this.filmCast=(this.filmObject.actors);
-        console.log(this.filmCast);
-        console.log(this.filmObject);
-        // let temp=[];
-        // temp=this.filmCast.actors.forEach(element => {
-        //     temp.push(element);        
-        // });
-        // console.log(this.filmCast.actors);
-        // console.log(temp);
-            // let returningString="", index=0;
-            // console.log(this.filmObject.actors);
-            // while(index<5){
-            //     returningString+=this.filmObject.actors[index]+" ";
-            //     index++;
-            // }
-            // return returningString;
-    },
+    // created(){
+    //     this.filmCast=this.filmObject;
+    //     console.log(this.filmObject);
+    // },
 }
 </script>
 

@@ -20,7 +20,6 @@ export default {
     return{
       stringToGet:'',
       callMovie:"https://api.themoviedb.org/3/search/movie",
-      // https://api.themoviedb.org/3/movie/{movie_id}/credits?api_key=<<api_key>>&language=en-US
       callMovieActors:"https://api.themoviedb.org/3/movie/",
       callSeries:"https://api.themoviedb.org/3/search/tv",
       callGenres:"https://api.themoviedb.org/3/genre",
@@ -39,18 +38,22 @@ export default {
             params: researchParams
         }).then((response)=>{
             // chiamata attori
-            response.data.results.forEach(element => {
+            response.data.results.map((element) => {
               axios.get(this.callMovieActors+element.id+"/credits", {
                 params:actorsParams
-              }).then((response)=>{
+              }).then((responseactors)=>{
                 let actors=[];
-                response.data.cast.forEach(actor=>{actors.push(actor.name);});
+                responseactors.data.cast.forEach(actor=>{actors.push(actor.name);});
                 element.actors=actors;
+                element.visibility=true;
+                element.type="film";
+                // response.data.results.map((element)=>{element.type="film"; element.visibility=true});
               });
             });
-            //fine chiamata attori
-            response.data.results.map((element)=>{element.type="film"; element.visibility=true});
             this.filmsArray=response.data.results;
+            //fine chiamata attori
+            // response.data.results.map((element)=>{element.type="film"; element.visibility=true});
+            // this.filmsArray=response.data.results;
             // chiamata serie
             axios.get(this.callSeries, {
               params: researchParams
