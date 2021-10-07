@@ -33,11 +33,7 @@
       <div class="type_container">
         <div class="row_title">
           <h2>SERIE</h2>
-          <select
-            @change="Filtering('serie')"
-            name="serieselect"
-            id="serieselect"
-          >
+          <select @change="Filtering('serie')" name="serieselect" id="serieselect">
             <option value="">tutti i generi</option>
             <option
               v-for="(element, index) in this.seriesGenres"
@@ -91,6 +87,8 @@ export default {
         array = this.seriesArray;
       }
       array.forEach((element) => {
+        console.log(element);
+        console.log(genre);
         if (element.genre_ids.includes(genre) || isNaN(genre)) {
           element.visibility = true;
         } else {
@@ -105,6 +103,9 @@ export default {
 <style lang="scss" scoped>
 @import "../assets/style/common.scss";
 // @import '~bootstrap/scss/bootstrap.scss';
+.d-none{
+    display: none;
+}
 main {
   .type_container {
     padding-bottom: 80px;

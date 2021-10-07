@@ -21,7 +21,6 @@ export default {
       stringToGet:'',
       callMovie:"https://api.themoviedb.org/3/search/movie",
       callMovieActors:"https://api.themoviedb.org/3/movie/",
-      // https://api.themoviedb.org/3/tv/{tv_id}?api_key=<<api_key>>&language=en-US
       callSeriesActors:"https://api.themoviedb.org/3/tv/",
       callSeries:"https://api.themoviedb.org/3/search/tv",
       callGenres:"https://api.themoviedb.org/3/genre",
@@ -49,6 +48,14 @@ export default {
                 element.actors=actors;
                 element.visibility=true;
                 element.type="film";
+                element.genre_names="";
+                element.genre_ids.forEach(element2=>{
+                  this.filmsGenres.forEach(element3=>{
+                    if(element3.id==element2){
+                      element.genre_names+=element3.name+" ";
+                    }
+                  });
+                });
                 this.filmsArray.push(element);
               });
             });
@@ -66,6 +73,14 @@ export default {
                     element.actors=actors;
                     element.visibility=true;
                     element.type="serie";
+                    element.genre_names="";
+                    element.genre_ids.forEach(element2=>{
+                      this.seriesGenres.forEach(element3=>{
+                        if(element3.id==element2){
+                          element.genre_names+=element3.name+" ";
+                        }
+                      });
+                    });
                     this.seriesArray.push(element);
                   });
                 });
@@ -93,7 +108,6 @@ export default {
       }
     }).then((response)=>{
       this.seriesGenres=response.data.genres;
-      // console.log(this.seriesGenres);
     });
   }
 }

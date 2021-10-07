@@ -6,6 +6,7 @@
                 <p><span class="info__type">Titolo: </span>{{this.filmObject.type=='film'? this.filmObject.title : this.filmObject.name}}</p>
                 <p><span class="info__type">Titolo originale: </span> {{this.filmObject.type=='film'? this.filmObject.original_title : this.filmObject.original_name}}</p>
                 <p><span class="info__type">Cast: </span>{{this.filmCast}}</p>
+                <p><span class="info__type">Genere: </span>{{this.filmObject.genre_names}}</p>
                 <div class="d-flex">
                     <p><span class="info__type">Lingua: </span> {{this.filmObject.original_language}}</p>
                     <img class="flagIcon" :src="`https://www.unknown.nu/flags/images/${this.filmObject.original_language}-100`">
@@ -58,8 +59,6 @@ export default {
             height: 304px;
         }
         position: relative;
-        
-        // margin-right: -120px!important;
         width: 300px!important;
         padding: 2px!important;
         height: 430px;
