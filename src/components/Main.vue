@@ -106,9 +106,9 @@ export default {
 @import "../assets/style/common.scss";
 // @import '~bootstrap/scss/bootstrap.scss';
 main {
-    .type_container{
-        padding-bottom: 80px;
-    }
+  .type_container {
+    padding-bottom: 80px;
+  }
   height: calc(100vh - $header_height);
   background-color: $gray_bgr;
   overflow: auto;
@@ -118,8 +118,8 @@ main {
     padding: 10px;
   }
   .row_title {
-      margin-top: 30px;
-      margin-bottom: -30px;
+    margin-top: 30px;
+    margin-bottom: -30px;
     display: flex;
     justify-content: center;
     align-items: center;

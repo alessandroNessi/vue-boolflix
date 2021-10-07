@@ -21,6 +21,8 @@ export default {
       stringToGet:'',
       callMovie:"https://api.themoviedb.org/3/search/movie",
       callMovieActors:"https://api.themoviedb.org/3/movie/",
+      // https://api.themoviedb.org/3/tv/{tv_id}?api_key=<<api_key>>&language=en-US
+      callSeriesActors:"https://api.themoviedb.org/3/tv/",
       callSeries:"https://api.themoviedb.org/3/search/tv",
       callGenres:"https://api.themoviedb.org/3/genre",
       filmsArray:[],
@@ -50,11 +52,24 @@ export default {
                 this.filmsArray.push(element);
               });
             });
+            //fine chiamata attori
             axios.get(this.callSeries, {
               params: researchParams
               }).then((response)=>{
-                  response.data.results.map((element)=>{element.type="serie"; element.visibility=true});
-                  this.seriesArray=response.data.results;
+                // chiamata attori
+                response.data.results.forEach((element) => {
+                  axios.get(this.callSeriesActors+element.id+"/credits", {
+                    params:actorsParams
+                  }).then((responseactors)=>{
+                    let actors=[];
+                    responseactors.data.cast.forEach(actor=>{actors.push(actor.name);});
+                    element.actors=actors;
+                    element.visibility=true;
+                    element.type="serie";
+                    this.seriesArray.push(element);
+                  });
+                });
+                //fine chiamata attori
               });
         });
         // fine chiamata film
