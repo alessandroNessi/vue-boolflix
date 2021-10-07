@@ -32,45 +32,35 @@ export default {
   },
   methods:{
     callAxios(str){
-      // let temp=[];
+      // chiamata film
+      const researchParams={api_key: "a21aee6674cb415ea0fe118a1c90c893",language: "it",query: str,};
+      const actorsParams={api_key: "a21aee6674cb415ea0fe118a1c90c893",language: "it-IT",};
       axios.get(this.callMovie, {
-            params: {
-                api_key: "a21aee6674cb415ea0fe118a1c90c893",
-                language: "it",
-                query: str,
-            }   
+            params: researchParams
         }).then((response)=>{
             // chiamata attori
             response.data.results.forEach(element => {
               axios.get(this.callMovieActors+element.id+"/credits", {
-                params:{
-                  api_key: "a21aee6674cb415ea0fe118a1c90c893",
-                  language: "it-IT",
-                }
+                params:actorsParams
               }).then((response)=>{
                 let actors=[];
-                // console.log(response);
-                response.data.cast.forEach(actor=>{
-                  actors.push(actor.name);
-                })
-                console.log(actors);
+                response.data.cast.forEach(actor=>{actors.push(actor.name);});
+                element.actors=actors;
               });
-              // console.log("id:"+element.id);
             });
+            //fine chiamata attori
             response.data.results.map((element)=>{element.type="film"; element.visibility=true});
             this.filmsArray=response.data.results;
+            // chiamata serie
             axios.get(this.callSeries, {
-              params: {
-                  api_key: "a21aee6674cb415ea0fe118a1c90c893",
-                  language: "it",
-                  query: str,
-              }   
+              params: researchParams
               }).then((response)=>{
                   response.data.results.map((element)=>{element.type="serie"; element.visibility=true});
                   this.seriesArray=response.data.results;
                   // console.log(response.data.results);
               });
         });
+        // fine chiamata film
     },
   },
   created(){
