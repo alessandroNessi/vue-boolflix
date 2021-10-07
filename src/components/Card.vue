@@ -1,16 +1,18 @@
 <template>
-    <div class="card"  @mouseleave="showImg" @mouseenter="hideImg">
-        <img class="cardImage" :src="this.filmObject.poster_path==null?require(`../assets/img/no_image.jpg`):`https://image.tmdb.org/t/p/w300/${this.filmObject.poster_path}`" :alt="this.filmObject.type=='film'? this.filmObject.title : this.filmObject.type">
-        <div class="content">
-            <p><span class="info__type">Titolo: </span>{{this.filmObject.type=='film'? this.filmObject.title : this.filmObject.name}}</p>
-            <p><span class="info__type">Titolo originale: </span> {{this.filmObject.type=='film'? this.filmObject.original_title : this.filmObject.original_name}}</p>
-            <p><span class="info__type">Cast: </span></p>
-            <div class="d-flex">
-                <p><span class="info__type">Lingua: </span> {{this.filmObject.original_language}}</p>
-                <img class="flagIcon" :src="`https://www.unknown.nu/flags/images/${this.filmObject.original_language}-100`">
+    <div class="card_container">
+        <div class="card"  @mouseleave="showImg" @mouseenter="hideImg">
+            <img class="cardImage" :src="this.filmObject.poster_path==null?require(`../assets/img/no_image.jpg`):`https://image.tmdb.org/t/p/w300/${this.filmObject.poster_path}`" :alt="this.filmObject.type=='film'? this.filmObject.title : this.filmObject.type">
+            <div class="content">
+                <p><span class="info__type">Titolo: </span>{{this.filmObject.type=='film'? this.filmObject.title : this.filmObject.name}}</p>
+                <p><span class="info__type">Titolo originale: </span> {{this.filmObject.type=='film'? this.filmObject.original_title : this.filmObject.original_name}}</p>
+                <p><span class="info__type">Cast: </span>{{this.filmCast}}</p>
+                <div class="d-flex">
+                    <p><span class="info__type">Lingua: </span> {{this.filmObject.original_language}}</p>
+                    <img class="flagIcon" :src="`https://www.unknown.nu/flags/images/${this.filmObject.original_language}-100`">
+                </div>
+                <p><span class="info__type">Voto: </span> <span class="golden"><i v-for="(element, index) in Math.round(this.filmObject.vote_average/2)" :key="index" class="fas fa-star"></i></span><span class="gray"><i v-for="(element, index) in Math.round((10-this.filmObject.vote_average)/2)" :key="index" class="fas fa-star"></i></span></p>
+                <p><span class="info__type">Overview: </span> {{this.filmObject.overview}}</p>
             </div>
-            <p><span class="info__type">Voto: </span> <span class="golden"><i v-for="(element, index) in Math.round(this.filmObject.vote_average/2)" :key="index" class="fas fa-star"></i></span><span class="gray"><i v-for="(element, index) in Math.round((10-this.filmObject.vote_average)/2)" :key="index" class="fas fa-star"></i></span></p>
-            <p><span class="info__type">Overview: </span> {{this.filmObject.overview}}</p>
         </div>
     </div>
 </template>
@@ -24,7 +26,7 @@ export default {
     },
     data(){
         return{
-            filmCast:{},
+            filmCast:"",
         }
     },
     methods:{
@@ -34,32 +36,31 @@ export default {
         showImg: function(event){
             event.target.getElementsByClassName("cardImage")[0].style.display = "block";
         },
-        // actors(){
-        //     const actors=this.filmObject.actors;
-        //     console.log(this.filmObject.actors);
-        //     console.log(actors);
-        //     let returningString="";
-        //     , index=0;
-        //     while(index<5 && index<array.length){
-        //         returningString+=array[index]+" ";
-        //             index++;
-        //     }
-        //     return returningString;
-        // }
     },
-    // created(){
-    //     this.filmCast=this.filmObject;
-    //     console.log(this.filmObject);
-    // },
+    created(){
+        let cast=this.filmObject.actors, index=0;
+        if(cast!=undefined){
+            while(index<5 && index<cast.length){   
+                this.filmCast+=cast[index]+" ";
+                index++;
+            }
+        }
+    },
 }
 </script>
 
 <style lang="scss" scoped>
     @import '../assets/style/common.scss';
     .card{
+        &_container{
+            transform: rotate(90deg) translateY(-430px);
+            transform-origin: left top;
+            height: 304px;
+        }
         position: relative;
+        
+        // margin-right: -120px!important;
         width: 300px!important;
-        margin: 10px 5px 10px 5px;
         padding: 2px!important;
         height: 430px;
         border: 0px solid transparent!important;;

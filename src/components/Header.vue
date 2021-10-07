@@ -35,7 +35,7 @@ header {
   justify-content: space-between;
   align-items: center;
   h1{
-      color: $text_color;
+      color: rgb(175, 0, 0);
   }
 
 }
