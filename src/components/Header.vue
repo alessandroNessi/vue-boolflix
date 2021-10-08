@@ -17,6 +17,7 @@ export default {
   methods: {
     callEmit() {
       const emitValue = document.getElementById("searchInput").value;
+      document.getElementById("searchInput").value="";
       if (emitValue != "") {
         this.$emit("emittedSearch", emitValue);
       }

@@ -32,6 +32,10 @@ export default {
   },
   methods:{
     callAxios(str){
+      //svuoto i form dei film/serie
+      for(let i=0; i<document.getElementsByClassName("row").length;i++){
+        document.getElementsByClassName("row")[i].innerHTML="";
+      }
       // chiamata film
       const researchParams={api_key: "a21aee6674cb415ea0fe118a1c90c893",language: "it",query: str,};
       const actorsParams={api_key: "a21aee6674cb415ea0fe118a1c90c893",language: "it-IT",};
