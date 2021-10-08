@@ -46,8 +46,9 @@ export default {
     },
     closeVideo(){
       document.getElementById("videoContainer").style.display="none";
-      document.getElementsByClassName("videoPlayer")[0].srt="";
-      // video.currentTime = 0;
+      console.log(document.getElementsByClassName("videoPlayer")[0].contentWindow);
+      // document.getElementsByClassName("video-stream")[0].pause();
+      // document.getElementsByClassName("videoPlayer")[0].contentWindow.postMessage('{"event":"command","func":"' + 'stopVideo' + '","args":""}', '*');
     },
     callAxios(str){
       //svuoto i form dei film/serie
@@ -166,9 +167,10 @@ export default {
       }
       button{
         position: absolute;
+        border-width: 0;
         height: 50px;
         width: 50px;
-        background-color: red;
+        background-color: rgba($color: red, $alpha: 0.7);
         color: white;
         border-radius: 50%;
         top: 0;
