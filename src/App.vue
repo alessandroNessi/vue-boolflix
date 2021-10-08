@@ -60,7 +60,15 @@ export default {
                     }
                   });
                 });
-                this.filmsArray.push(element);
+                axios.get("https://api.themoviedb.org/3/movie/"+element.id+"/videos?api_key=a21aee6674cb415ea0fe118a1c90c893&language=it-IT",)
+                .then((responseTrailer)=>{
+                  if(responseTrailer.data.results[0]!=undefined){
+                    element.trailerKey=responseTrailer.data.results[0].key;
+                  }else{
+                    element.trailerKey=false;
+                  }
+                  this.filmsArray.push(element);
+                });
               });
             });
             //fine chiamata attori

@@ -12,7 +12,8 @@
                     <img class="flagIcon" :src="`https://www.unknown.nu/flags/images/${this.filmObject.original_language}-100`">
                 </div>
                 <p><span class="info__type">Voto: </span> <span class="golden"><i v-for="(element, index) in Math.round(this.filmObject.vote_average/2)" :key="index" class="fas fa-star"></i></span><span class="gray"><i v-for="(element, index) in Math.round((10-this.filmObject.vote_average)/2)" :key="index" class="fas fa-star"></i></span></p>
-                <p><span class="info__type">Overview: </span> {{this.filmObject.overview}}</p>
+                <a v-if="this.filmObject.trailerKey" :href="`https://www.youtube.com/watch?v=${this.filmObject.trailerKey}`" class="trailer">watch trailer</a>
+                <!-- <p><span class="info__type">Overview: </span> {{this.filmObject.overview}}</p> -->
             </div>
         </div>
     </div>
@@ -40,6 +41,7 @@ export default {
     },
     created(){
         let cast=this.filmObject.actors, index=0;
+        console.log(this.filmObject);
         if(cast!=undefined){
             while(index<5 && index<cast.length){   
                 this.filmCast+=cast[index]+" ";
@@ -67,6 +69,12 @@ export default {
         display: flex;
         flex-direction: row!important;
         color: $text_color;
+        .trailer{
+            padding: 10px;
+            background-color: grey;
+            border: 1px solid black;
+            border-radius: 5px;
+        }
         .info__type{
             font-weight: 600;
         }
