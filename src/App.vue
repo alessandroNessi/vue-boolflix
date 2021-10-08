@@ -5,8 +5,9 @@
     <div id="videoContainer">
       <div class="midContainer">
         <button @mouseup="closeVideo()">X</button>
-        <iframe class="videoPlayer" src="">
-        </iframe>
+        <div id="frameContainer">
+          <iframe class="videoPlayer" src=""></iframe>
+        </div>
       </div>
     </div>
     <Header @emittedSearch="callAxios"/>
@@ -41,14 +42,12 @@ export default {
   },
   methods:{
     startTrailer(str){
-      document.getElementsByClassName("videoPlayer")[0].src=str;
+      document.getElementById("frameContainer").innerHTML=`<iframe class="videoPlayer" src="${str}"></iframe>`;
       document.getElementById("videoContainer").style.display="flex";
     },
     closeVideo(){
       document.getElementById("videoContainer").style.display="none";
-      console.log(document.getElementsByClassName("videoPlayer")[0].contentWindow);
-      // document.getElementsByClassName("video-stream")[0].pause();
-      // document.getElementsByClassName("videoPlayer")[0].contentWindow.postMessage('{"event":"command","func":"' + 'stopVideo' + '","args":""}', '*');
+      document.getElementById("frameContainer").innerHTML=``;
     },
     callAxios(str){
       //svuoto i form dei film/serie
@@ -160,7 +159,7 @@ export default {
       height: 100%;
       max-width: 800px;
       max-height: 600px;
-      .videoPlayer{
+      .videoPlayer, #frameContainer{
         width: 100%;
         height: 100%;
         
