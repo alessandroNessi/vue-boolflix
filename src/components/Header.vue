@@ -2,8 +2,8 @@
   <header>
     <h1>BOOLFLIX</h1>
     <div>
-      <input @keydown.enter="callEmit" id="searchInput" type="text" />
-      <button @mouseup="callEmit">submit</button>
+      <input @keydown.enter="callEmit" ref="searchInput" type="text" placeholder="inserisci il film da cercare"/>
+      <button @mouseup="callEmit">cerca</button>
     </div>
   </header>
 </template>
@@ -15,9 +15,10 @@ export default {
     return {};
   },
   methods: {
+    /**emit the value of the input in app */
     callEmit() {
-      const emitValue = document.getElementById("searchInput").value;
-      document.getElementById("searchInput").value="";
+      const emitValue = this.$refs.searchInput.value;
+      this.$refs.searchInput.value="";
       if (emitValue != "") {
         this.$emit("emittedSearch", emitValue);
       }

@@ -2,7 +2,8 @@
   <main>
     <div class="container">
       <!-- films -->
-      <div class="type_container">
+      <!-- <div ref="intro" id="intro" v-if="this.filmsArray==''"><h2>BENVENUTO IN <br>BOOLFLIX</h2></div> -->
+      <div v-if="this.filmsArray!=''" class="type_container">
         <div class="row_title">
           <h2>FILMS</h2>
           <select @change="Filtering('film')" name="filmselect" id="filmselect">
@@ -31,7 +32,7 @@
       </div>
 
       <!-- series -->
-      <div class="type_container">
+      <div v-if="this.seriesArray!=''" class="type_container">
         <div class="row_title">
           <h2>SERIE</h2>
           <select @change="Filtering('serie')" name="serieselect" id="serieselect">
@@ -92,8 +93,6 @@ export default {
         array = this.seriesArray;
       }
       array.forEach((element) => {
-        console.log(element);
-        console.log(genre);
         if (element.genre_ids.includes(genre) || isNaN(genre)) {
           element.visibility = true;
         } else {
@@ -102,6 +101,10 @@ export default {
       });
     },
   },
+  // created(){
+  //   setTimeout(function(){ alert("Hello"); }, 3000);
+  //   this.$refs.intro.style.opacity=0;
+  // }
 };
 </script>
 
@@ -112,6 +115,15 @@ export default {
     display: none;
 }
 main {
+  #intro{
+    transition: opacity 2s;
+    // opacity: 0;
+    h2{
+      padding-top: 200px;
+      color: rgb(162, 18, 25);
+      font-size: 150px;
+    }
+  }
   .type_container {
     padding-bottom: 80px;
   }
@@ -144,7 +156,7 @@ main {
   &::-webkit-scrollbar {
     display: none;
   }
-  border: 1px solid #aaa;
+  // border: 1px solid #aaa;
   height: calc(100vw - 60px);
   width: 432px;
   overflow: auto;

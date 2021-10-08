@@ -2,11 +2,11 @@
 
 <template>
   <div id="app">
-    <div id="videoContainer">
+    <div ref="videoContainer" class="videoContainer">
       <div class="midContainer">
         <button @mouseup="closeVideo()">X</button>
-        <div id="frameContainer">
-          <iframe class="videoPlayer" src=""></iframe>
+        <div ref="frameContainer" class="frameContainer">
+          <!-- <iframe class="videoPlayer" src=""></iframe> -->
         </div>
       </div>
     </div>
@@ -28,7 +28,6 @@ export default {
   },
   data(){
     return{
-      stringToGet:'',
       callMovie:"https://api.themoviedb.org/3/search/movie",
       callMovieActors:"https://api.themoviedb.org/3/movie/",
       callSeriesActors:"https://api.themoviedb.org/3/tv/",
@@ -41,20 +40,21 @@ export default {
     }
   },
   methods:{
+    /**makes video with overlay visible and assign the video source */
     startTrailer(str){
-      document.getElementById("frameContainer").innerHTML=`<iframe class="videoPlayer" src="${str}"></iframe>`;
-      document.getElementById("videoContainer").style.display="flex";
+      this.$refs.frameContainer.innerHTML=`<iframe class="videoPlayer" src="${str}"></iframe>`;
+      this.$refs.videoContainer.style.display="flex";
     },
+    /**hide the overlay and delete the frame video element to stop the video*/
     closeVideo(){
-      document.getElementById("videoContainer").style.display="none";
-      document.getElementById("frameContainer").innerHTML=``;
+      this.$refs.videoContainer.style.display="none";
+      this.$refs.frameContainer.innerHTML=``;
     },
+    /**call axios*/
     callAxios(str){
       //svuoto i form dei film/serie
-      for(let i=0; i<document.getElementsByClassName("row").length;i++){
-        document.getElementsByClassName("row")[i].innerHTML="";
-      }
-      // chiamata film
+      Array.prototype.forEach.call(document.getElementsByClassName("row"), element => {element.innerHTML="";});
+      //assegnazione parametri api
       const researchParams={api_key: "a21aee6674cb415ea0fe118a1c90c893",language: "it",query: str,};
       const actorsParams={api_key: "a21aee6674cb415ea0fe118a1c90c893",language: "it-IT",};
       axios.get(this.callMovie, {
@@ -144,7 +144,7 @@ export default {
 </script>
 
 <style lang="scss">
-  #videoContainer{
+  .videoContainer{
     position: absolute;
     background-color: rgba($color: #000000, $alpha: 0.4);
     width: 100vw;
@@ -159,7 +159,7 @@ export default {
       height: 100%;
       max-width: 800px;
       max-height: 600px;
-      .videoPlayer, #frameContainer{
+      .videoPlayer, .frameContainer{
         width: 100%;
         height: 100%;
         

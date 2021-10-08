@@ -44,7 +44,7 @@ export default {
     },
     created(){
         let cast=this.filmObject.actors, index=0;
-        console.log(this.filmObject);
+        // console.log(this.filmObject);
         if(cast!=undefined){
             while(index<5 && index<cast.length){   
                 this.filmCast+=cast[index]+" ";
