@@ -28,6 +28,8 @@ export default {
   },
   data(){
     return{
+      callPopularMovie:"https://api.themoviedb.org/3/movie/popular",
+      callPopularSeries:"https://api.themoviedb.org/3/tv/popular",
       callMovie:"https://api.themoviedb.org/3/search/movie",
       callMovieActors:"https://api.themoviedb.org/3/movie/",
       callSeriesActors:"https://api.themoviedb.org/3/tv/",
@@ -55,9 +57,17 @@ export default {
       //svuoto i form dei film/serie
       Array.prototype.forEach.call(document.getElementsByClassName("row"), element => {element.innerHTML="";});
       //assegnazione parametri api
-      const researchParams={api_key: "a21aee6674cb415ea0fe118a1c90c893",language: "it",query: str,};
+      const researchParams={api_key: "a21aee6674cb415ea0fe118a1c90c893",language: "it-IT",query: str,};
       const actorsParams={api_key: "a21aee6674cb415ea0fe118a1c90c893",language: "it-IT",};
-      axios.get(this.callMovie, {
+      let thisMovie="", thisSerie="";
+      if(str===true){
+        thisMovie=this.callPopularMovie;
+        thisSerie=this.callPopularSeries;
+      }else{
+        thisMovie=this.callMovie;
+        thisSerie=this.callSeries;
+      }
+      axios.get(thisMovie, {
             params: researchParams
         }).then((response)=>{
             // chiamata attori
@@ -90,7 +100,7 @@ export default {
               });
             });
             //fine chiamata attori
-            axios.get(this.callSeries, {
+            axios.get(thisSerie, {
               params: researchParams
               }).then((response)=>{
                 // chiamata attori
@@ -121,6 +131,9 @@ export default {
     },
   },
   created(){
+    //on create ask for popular movies
+    // https://api.themoviedb.org/3/movie/popular?api_key=<<api_key>>&language=en-US&page=1
+    this.callAxios(true);
     //get movie genres
     axios.get(this.callGenres+"/movie/list", {
       params: {
