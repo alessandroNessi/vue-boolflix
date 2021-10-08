@@ -1,7 +1,16 @@
+// z index player 999, always top
+
 <template>
   <div id="app">
+    <div id="videoContainer">
+      <div class="midContainer">
+        <button @mouseup="closeVideo()">X</button>
+        <iframe class="videoPlayer" src="">
+        </iframe>
+      </div>
+    </div>
     <Header @emittedSearch="callAxios"/>
-    <Main :filmsGenres="this.filmsGenres" :seriesGenres="this.seriesGenres" :seriesArray="this.seriesArray" :filmsArray="this.filmsArray"/>
+    <Main @trailerUrl="startTrailer" :filmsGenres="this.filmsGenres" :seriesGenres="this.seriesGenres" :seriesArray="this.seriesArray" :filmsArray="this.filmsArray"/>
   </div>
 </template>
 
@@ -31,6 +40,15 @@ export default {
     }
   },
   methods:{
+    startTrailer(str){
+      document.getElementsByClassName("videoPlayer")[0].src=str;
+      document.getElementById("videoContainer").style.display="flex";
+    },
+    closeVideo(){
+      document.getElementById("videoContainer").style.display="none";
+      document.getElementsByClassName("videoPlayer")[0].srt="";
+      // video.currentTime = 0;
+    },
     callAxios(str){
       //svuoto i form dei film/serie
       for(let i=0; i<document.getElementsByClassName("row").length;i++){
@@ -126,5 +144,37 @@ export default {
 </script>
 
 <style lang="scss">
+  #videoContainer{
+    position: absolute;
+    background-color: rgba($color: #000000, $alpha: 0.4);
+    width: 100vw;
+    height: 100vh;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+    .midContainer{
+      position: relative;
+      width: 100%;
+      height: 100%;
+      max-width: 800px;
+      max-height: 600px;
+      .videoPlayer{
+        width: 100%;
+        height: 100%;
+        
+      }
+      button{
+        position: absolute;
+        height: 50px;
+        width: 50px;
+        background-color: red;
+        color: white;
+        border-radius: 50%;
+        top: 0;
+        right: 0;
+      }
+    }
+  }
   @import './assets/style/common.scss'
 </style>

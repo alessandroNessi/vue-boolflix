@@ -12,7 +12,7 @@
                     <img class="flagIcon" :src="`https://www.unknown.nu/flags/images/${this.filmObject.original_language}-100`">
                 </div>
                 <p><span class="info__type">Voto: </span> <span class="golden"><i v-for="(element, index) in Math.round(this.filmObject.vote_average/2)" :key="index" class="fas fa-star"></i></span><span class="gray"><i v-for="(element, index) in Math.round((10-this.filmObject.vote_average)/2)" :key="index" class="fas fa-star"></i></span></p>
-                <a v-if="this.filmObject.trailerKey" :href="`https://www.youtube.com/watch?v=${this.filmObject.trailerKey}`" class="trailer">watch trailer</a>
+                <button @click="emit()" v-if="this.filmObject.trailerKey" class="trailer">watch trailer</button>
                 <!-- <p><span class="info__type">Overview: </span> {{this.filmObject.overview}}</p> -->
             </div>
         </div>
@@ -32,6 +32,9 @@ export default {
         }
     },
     methods:{
+        emit(){
+            this.$emit('emittedTrailer',`https://www.youtube.com/embed/${this.filmObject.trailerKey}`)
+        },
         hideImg: function(event){
             event.target.getElementsByClassName("cardImage")[0].style.display = "none";
         },

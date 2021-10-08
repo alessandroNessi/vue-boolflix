@@ -19,6 +19,7 @@
         <div class="row_container">
           <div class="row">
             <Card
+              @emittedTrailer="callEmitTrailer"
               class="card__film col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12"
               v-for="(element, index) in this.filmsArray"
               :key="index"
@@ -77,6 +78,10 @@ export default {
     return {};
   },
   methods: {
+    callEmitTrailer(str){
+      // alert(str);
+      this.$emit("trailerUrl",str);
+    },
     Filtering(type) {
       let genre, array;
       if (type == "film") {
